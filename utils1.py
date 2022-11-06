@@ -19,6 +19,9 @@ class Net(nn.Module):
         return y_hat
 
     def get_ops(self):
-        loss_op = nn.MSELoss()
+        if self.sigmoid_output:
+            loss_op = nn.BCELoss()
+        else:
+            loss_op = nn.MSELoss()
         optim_op = tr.optim.SGD(self.parameters(), lr=0.01)
         return loss_op, optim_op
