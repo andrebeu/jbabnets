@@ -5,6 +5,7 @@ import torch.nn as nn
 class Net(nn.Module):
     def __init__(self, n_hidden, indim=2, outdim=1, sigmoid_output=False):
         super(Net, self).__init__()
+        self.sigmoid_output = sigmoid_output
         self.fc1 = nn.Linear(indim, n_hidden)
         self.fc2 = nn.Linear(n_hidden, n_hidden)
         self.fc3 = nn.Linear(n_hidden, outdim)
@@ -13,7 +14,7 @@ class Net(nn.Module):
         h1 = self.fc1(x).relu()
         h2 = self.fc2(h1).relu()
         y_hat = self.fc3(h2)
-        if sigmoid_output:
+        if self.sigmoid_output:
             y_hat = y_hat.sigmoid()
         return y_hat
 
